@@ -1,0 +1,6 @@
+formValidation:
+  version: 1.0
+  js:
+    js/customRecurly.js: {}
+  dependencies:
+    - core/jquery

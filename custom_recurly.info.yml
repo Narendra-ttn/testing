@@ -1,0 +1,5 @@
+name: Custom Recurly
+type: module
+description: 'Custom Recurly Module for changes in the Recurly Module.'
+package: Custom
+core: '8.x'

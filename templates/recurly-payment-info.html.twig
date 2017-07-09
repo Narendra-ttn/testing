@@ -1,0 +1,13 @@
+    <div class = "payment-info">
+        <h2>Payment Method</h2>
+       <ul>
+        <li><a href = "/user/{{ uid }}/subscription/billing">Update</a></li>
+{%- if exp is not empty or accnum is not empty -%}
+        <li>Credit card number: xxxxxxxxxxxx{{ accnum }}</li>
+        <li>Credit card expiration: {{ exp }}</li>
+        {%- if card_type is not empty -%}
+        	<li>Credit card type: {{ card_type }}</li>
+        {%- endif -%}
+{%- endif -%}
+       </ul>
+    </div>

@@ -1,0 +1,12 @@
+services:
+  custom_recurly.subscription_event_subscriber:
+    class: Drupal\custom_recurly\Event\CustomRecurlyEventSubscriber
+    tags:
+      - { name: event_subscriber }
+  custom_recurly.recurly_preprocess:
+    class: Drupal\custom_recurly\CustomRecurlyPreprocess
+    arguments: ['@recurly.format_manager', '@config.factory']
+  custom_recurly.route_subscriber:
+    class: Drupal\custom_recurly\Routing\CustomRecurlyJsRouteSubscriber
+    tags:
+      - { name: event_subscriber }

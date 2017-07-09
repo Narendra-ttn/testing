@@ -1,0 +1,5 @@
+custom_recurly.trial_duration_update:
+  route_name: custom_recurly.trial_duration_update
+  title: 'Cancelled User Free Trail Check'
+  weight: 10
+  base_route: recurly.settings_form

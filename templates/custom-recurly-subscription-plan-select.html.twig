@@ -1,0 +1,74 @@
+{#
+
+/**
+ * @file
+ * Display a signup page listing all the available plans.
+ */
+#}
+
+{{ attach_library('recurly/recurly.default') }}
+<section class="membership-plans">
+    {#
+    /**
+     *{% if expired_subscriptions %}
+     *    <div class="messages warning">{{ 'Your previously active plans have expired. Choose a plan to get started!'|t }}</div>
+     *{% endif %}
+    */
+    #}
+    <div class="plans-details clearfix">
+        <h1>Select Your Plan</h1>
+        {% for plan in filtered_plans %}
+            <div class="plan-pricing plan-{{ plan['plan_code'] }}{{ ((mode == 'change') and (plan['selected'])) ? ' plan-selected' : '' }}">
+                {% if plan['text_field'] is not empty %}
+                    <div class="plan-popular">{{ plan['text_field'] }}</div>
+                {% endif %}
+                {% if change_plan_status %}
+                    <div id="change_plan_message_{{ plan['plan_code'] }}" class="change_plan_message"
+                         style="display:none">
+                        <div>
+                            <div class="message">{{ change_plan_message }}</div>
+                            <div class="button">
+                                <div>
+                                    <a href="{{ path('custom_recurly.change_plan', {'plan_id': plan['plan_code'] }) }}">Yes</a>
+                                </div>
+                                <div><a href="javascript:"
+                                        onclick="parent.jQuery.fn.colorbox.close();return false;">No</a></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="plan-features">
+                    <p class="title">{{ plan['name'] }}</p>
+
+                    <p class="plan-interval">{{ plan['plan_interval'] }}</p>
+                    {% if plan['trial_interval'] is defined %}
+                        <p class="plan-trial">{{ plan['trial_interval'] }}</p>
+                    {% endif %}
+                    <p class="plan-description">{{ plan['description']|nl2br }}</p>
+
+                    <p class="plan-signup">
+                        {% if mode == 'signup' %}
+                            {% if plan['signup_url'] %}
+                                {% if plan['selected'] %}
+                                    <strong>{{ 'Selected'|t }}</strong>
+                                {% else %}
+                                    <a class="{{ change_plan_status ? 'change-plan-pop-up' : 'plan-select' }}"
+                                       data-attr="{{ change_plan_status ? plan['plan_code'] : '' }}"
+                                       href="{{ change_plan_status ? 'javascript:void(0)' : plan['signup_url'] }}">{{ change_plan_status ? "Change"|t : 'Sign up'|t }}</a>
+                                {% endif %}
+                            {% else %}
+                                {{ 'Contact us to sign up'|t }}
+                            {% endif %}
+                        {% else %}
+                            {% if plan['selected'] %}
+                                <strong>{{ 'Selected'|t }}</strong>
+                            {% else %}
+                                <a class="plan-select" href="{{ plan['change_url'] }}">{{ 'Select'|t }}</a>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>

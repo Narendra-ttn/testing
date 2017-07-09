@@ -1,0 +1,46 @@
+recurly__subscription.recurly_subscription_plans:
+  path: '/select-plan'
+  defaults:
+    _controller: '\Drupal\custom_recurly\Controller\RecurlySubscriptionController::listplans'
+    _title: 'Select your subscription plan'
+  requirements:
+    _permission: 'access content'
+subscription.subscription_cancel_free_trial:
+  path: '/free-trial/{user_id}/cancel'
+  defaults:
+    _controller: '\Drupal\custom_recurly\Controller\CustomRecurlySubscriptionController::cancelFreeTrial'
+  requirements:
+    _permission: 'access content'
+subscription.subscription_cancel:
+  path: '/subscription/{id}/cancel'
+  defaults:
+    _controller: '\Drupal\custom_recurly\Controller\CustomRecurlySubscriptionController::cancelSubscription'
+  requirements:
+    _permission: 'access content'
+subscription.subscription_cancel_renewal:
+  path: '/subscription/{id}/cancel_renewal'
+  defaults:
+    _controller: '\Drupal\custom_recurly\Controller\CustomRecurlySubscriptionController::cancelRenewalSubscription'
+  requirements:
+    _permission: 'access content'
+subscription.print_file:
+  path: '/subscription-receipt/{id}'
+  defaults:
+    _controller: '\Drupal\custom_recurly\Controller\CustomRecurlySubscriptionController::printReceipt'
+    _title: 'TeacherVision Subscription receipt'
+  requirements:
+    _permission: 'access content'
+custom_recurly.trial_duration_update:
+  path: '/admin/config/services/recurly/trial-duration-update'
+  defaults:
+    _title: 'Trial duration update'
+    _form: \Drupal\custom_recurly\Form\RecurlyTrialDurationForm
+  requirements:
+    _permission: 'administer recurly'
+custom_recurly.change_plan:
+  path: '/change_plan/{plan_id}'
+  defaults:
+    _title: 'Change Plan'
+    _controller: '\Drupal\custom_recurly\Controller\CustomRecurlySubscriptionController::changePlan'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for Custom Recurly module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function custom_recurly_schema() {
+  $schema = [];
+
+  $schema['recurly_settings'] = [
+    'description' => 'Recurly Settings.',
+    'fields' => [
+      'name' => [
+        'description' => 'The unique identifier of the recurly setting.',
+        'type' => 'varchar',
+        'length' => 100,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'data' => [
+        'description' => 'A serialized configuration object data.',
+        'type' => 'blob',
+      ],
+    ],
+    'primary key' => ['name'],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function custom_recurly_uninstall() {
+  // Delete setting table of custom recurly.
+  \Drupal::state()->delete('chrome_data');
+}
